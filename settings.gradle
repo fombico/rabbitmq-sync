@@ -1,0 +1,5 @@
+rootProject.name = "rabbitmq-sync"
+
+include "store"
+include "query"
+include "enrichment"
