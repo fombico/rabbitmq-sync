@@ -30,6 +30,11 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.apache.qpid:qpid-broker-core:7.1.5'
+	testImplementation 'org.apache.qpid:qpid-broker-plugins-memory-store:7.1.5'
+	testImplementation 'org.apache.qpid:qpid-broker-plugins-amqp-0-8-protocol:7.1.5'
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
