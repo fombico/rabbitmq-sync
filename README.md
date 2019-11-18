@@ -21,14 +21,4 @@ Also, `spring-cloud-starter-sleuth` has been added to see trace/span ids per req
 - **Uses RabbitMQ** - install and run via brew or docker
 
 ## Testing
-**Query** has an example of an integration test, which uses an in-memory plugin of a different AMQP framework known as [Qpid](https://qpid.apache.org/)
-
-The test was written based on https://novotnyr.github.io/scrolls/qpid-as-mocking-amqp-broker-for-integration-tests/.
-
-Also see notes on RabbitMQ and Qpid interoperability here: https://www.rabbitmq.com/interoperability.html
-
-The test runs Qpid on port 9000. This is configured in (unfortunately) 3 places:
-- `qpid-embedded-inmemory-configuration.json` - config for Qpid
-- `test/resources/application.properties` - config RabbitMQ to use this port and to create a **new variable** `qpid.amqp_port`
-- `MessageListenerTest`'s usage of `CachingConnectionFactory`, which uses the `qpid.amqp_port`
- 
+**Query** has an example of an integration test, which uses a mock RabbitMQ: https://github.com/fridujo/rabbitmq-mock
