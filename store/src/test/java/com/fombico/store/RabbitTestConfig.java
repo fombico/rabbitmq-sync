@@ -23,7 +23,7 @@ public class RabbitTestConfig {
     @Qualifier("query.queue")
     @Bean
     public Queue queryRequestsQueue() {
-        return new Queue("query.exchange.requests");
+        return new Queue("loadtest.query.exchange.requests");
     }
 
     @Qualifier("query.binding")

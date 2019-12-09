@@ -16,13 +16,13 @@ public class RabbitConfig {
     @Qualifier("query.queue")
     @Bean
     public Queue queryRequestsQueue() {
-        return new Queue("query.exchange.requests");
+        return new Queue("loadtest.query.exchange.requests");
     }
 
     @Qualifier("query.direct")
     @Bean
     public DirectExchange queryRequestsExchange() {
-        return new DirectExchange("query.direct");
+        return new DirectExchange("loadtest.query.direct");
     }
 
     @Qualifier("query.binding")
@@ -38,7 +38,7 @@ public class RabbitConfig {
     @Qualifier("enrichment.direct")
     @Bean
     public DirectExchange enrichmentExchange() {
-        return new DirectExchange("enrichment.direct");
+        return new DirectExchange("loadtest.enrichment.direct");
     }
 
     @Bean

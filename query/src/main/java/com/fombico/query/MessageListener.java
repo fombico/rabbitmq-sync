@@ -12,12 +12,15 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 @Slf4j
 public class MessageListener {
 
     private static final String ROUTING_KEY = "storeNumber";
+    private static AtomicInteger counter = new AtomicInteger();
+
     private RabbitTemplate rabbitTemplate;
     private DirectExchange enrichmentExchange;
 
@@ -27,9 +30,10 @@ public class MessageListener {
         this.enrichmentExchange = enrichmentExchange;
     }
 
-    @RabbitListener(queues = "query.exchange.requests")
+    @RabbitListener(queues = "loadtest.query.exchange.requests")
     public QueryResponse handleQuery(QueryRequest payload) {
-        log.info("query request received: " + payload);
+        int index = counter.incrementAndGet();
+        log.info("{} query request received {}", index, payload);
 
         QueryDto dto = QueryDto.builder()
                 .storeNumber(payload.getStoreNumber())
@@ -38,7 +42,7 @@ public class MessageListener {
                 .build();
 
         QueryResponse response = rabbitTemplate.convertSendAndReceiveAsType(enrichmentExchange.getName(), ROUTING_KEY, dto, ParameterizedTypeReference.forType(QueryResponse.class));
-        log.info("query response received: " + response);
+        log.info("{} query response received {}", index, response);
         return response;
     }
 }

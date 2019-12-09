@@ -13,7 +13,7 @@ public class RabbitConfig {
     @Qualifier("query.direct")
     @Bean
     public DirectExchange queryExchange() {
-        return new DirectExchange("query.direct");
+        return new DirectExchange("loadtest.query.direct");
     }
 
     @Bean

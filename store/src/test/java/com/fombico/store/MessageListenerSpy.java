@@ -19,7 +19,7 @@ public class MessageListenerSpy {
         return lastPayload;
     }
 
-    @RabbitListener(queues = "query.exchange.requests")
+    @RabbitListener(queues = "loadtest.query.exchange.requests")
     public QueryResponse handleQuery(QueryRequest payload) {
         lastPayload = payload;
         return queryResponse;
