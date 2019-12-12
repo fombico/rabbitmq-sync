@@ -35,10 +35,16 @@ public class RabbitConfig {
                 .with("storeNumber");
     }
 
-    @Qualifier("enrichment.direct")
+    @Qualifier("enrichment.direct.ping")
     @Bean
-    public DirectExchange enrichmentExchange() {
-        return new DirectExchange("enrichment.direct");
+    public DirectExchange enrichmentPingExchange() {
+        return new DirectExchange("enrichment.direct.ping");
+    }
+
+    @Qualifier("enrichment.direct.pong")
+    @Bean
+    public DirectExchange enrichmentPongExchange() {
+        return new DirectExchange("enrichment.direct.pong");
     }
 
     @Bean

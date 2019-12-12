@@ -22,3 +22,15 @@ Also, `spring-cloud-starter-sleuth` has been added to see trace/span ids per req
 
 ## Testing
 **Query** has an example of an integration test, which uses a mock RabbitMQ: https://github.com/fridujo/rabbitmq-mock
+
+## Reactive concurrent RPC calls
+
+A demo to answer the question: "Can we make concurrent RPC calls?"
+- Yes we can, recommend using the reactive Flux/Mono from Spring
+
+Demo:
+- Run Store, Query, Enrichment
+  - a POST to Store causes an RPC to Query, which sends two concurrent RPC calls to Enrichment
+- make POST to http://localhost:8080/query
+- On Query logs, see that concurrent requests are made to two different exchanges on enrichment.
+  The responses are received at different times, however Query waits for both to return before returning a response to the Store.

@@ -13,23 +13,46 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
-    @Qualifier("enrichment.queue")
+    @Qualifier("enrichment.queue.ping")
     @Bean
-    public Queue enrichmentRequestsQueue() {
-        return new Queue("enrichment.exchange.requests");
+    public Queue enrichmentRequestsPingQueue() {
+        return new Queue("enrichment.exchange.requests.ping");
     }
 
-    @Qualifier("enrichment.direct")
+    @Qualifier("enrichment.direct.ping")
     @Bean
-    public DirectExchange enrichmentRequestsExchange() {
-        return new DirectExchange("enrichment.direct");
+    public DirectExchange enrichmentRequestsPingExchange() {
+        return new DirectExchange("enrichment.direct.ping");
     }
 
-    @Qualifier("enrichment.binding")
+    @Qualifier("enrichment.binding.ping")
     @Bean
-    public Binding enrichmentRequestsBinding(
-            @Qualifier("enrichment.direct") DirectExchange exchange,
-            @Qualifier("enrichment.queue") Queue queue) {
+    public Binding enrichmentRequestsPingBinding(
+            @Qualifier("enrichment.direct.ping") DirectExchange exchange,
+            @Qualifier("enrichment.queue.ping") Queue queue) {
+        return BindingBuilder.bind(queue)
+                .to(exchange)
+                .with("storeNumber");
+    }
+
+
+    @Qualifier("enrichment.queue.pong")
+    @Bean
+    public Queue enrichmentRequestsPongQueue() {
+        return new Queue("enrichment.exchange.requests.pong");
+    }
+
+    @Qualifier("enrichment.direct.pong")
+    @Bean
+    public DirectExchange enrichmentRequestsPongExchange() {
+        return new DirectExchange("enrichment.direct.pong");
+    }
+
+    @Qualifier("enrichment.binding.pong")
+    @Bean
+    public Binding enrichmentRequestsPongBinding(
+            @Qualifier("enrichment.direct.pong") DirectExchange exchange,
+            @Qualifier("enrichment.queue.pong") Queue queue) {
         return BindingBuilder.bind(queue)
                 .to(exchange)
                 .with("storeNumber");

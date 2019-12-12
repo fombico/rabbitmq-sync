@@ -31,13 +31,13 @@ public class ApiController {
     }
 
     @PostMapping("/query")
-    public QueryResponse query() {
+    public String query() {
         QueryRequest queryRequest = QueryRequest.builder()
                 .userId(userId().toString())
                 .storeNumber(storeNumber)
                 .build();
         log.info("Sending query for store number " + storeNumber);
-        QueryResponse response = template.convertSendAndReceiveAsType(queryExchange.getName(), ROUTING_KEY, queryRequest, ParameterizedTypeReference.forType(QueryResponse.class));
+        String response = template.convertSendAndReceiveAsType(queryExchange.getName(), ROUTING_KEY, queryRequest, ParameterizedTypeReference.forType(String.class));
         log.info("Response: " + response);
         return response;
     }
